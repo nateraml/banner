@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body id="body">
+  
+</body>
+<script>
+const url = 'https://apinebolus.ole.agency/public/api/cryptocurrencies/banner-coins';
+
+async function fetchAPI(apiURL) {
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
+  
+}
+fetchAPI(url).then(data => {
+	var newDiv = document.createElement("div");
+	newDiv.classList.add("slider");
+	var newDiv1 = document.createElement("div");
+	newDiv1.classList.add("slide-track");
+	newDiv.appendChild(newDiv1); 
+	var currentDiv = document.getElementById("body");
+  	currentDiv.appendChild(newDiv)
+data.cryptocurrencies.forEach(element => {
+	var img = document.createElement('img');
+            img.src = element.cg_image;
+			img.height = "100"
+			img.width = "250"
+			img.style = "vertical-align:middle"
+			img.alt = ""
+			var span = document.createElement('span');
+			span.textContent = element.cg_name + '( ' +element.cg_symbol +')'
+			var span1 = document.createElement('span');
+			span1.textContent = element.cg_name + '( ' +element.cg_symbol +')'
+	var newDiv2 = document.createElement("div");
+	newDiv2.classList.add("slide");
+	var newDiv3 = document.createElement("div");
+	newDiv2.appendChild(img);
+	newDiv3.appendChild(span);
+	newDiv3.appendChild(span1);
+	newDiv1.appendChild(newDiv2); 
+	newDiv1.appendChild(newDiv3);
+});
+}).catch(error => {console.log(error)});
+
+</script>
+</html>
